@@ -151,7 +151,7 @@ console.log(appearances(a, e));
 
 /* Zadatak 10. Write a program that calculates the number of appearances of a letter a in a given string. Modify the program so it calculates the number of both letters a and A.
  */
-var c = .
+var c = "";
 function letter(a) {
     for (var i = 0; i < a.length; i++) {
         if (a[i] === "a") {

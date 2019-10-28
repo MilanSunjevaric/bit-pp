@@ -182,7 +182,17 @@ console.log(perfect(28));
 '	a, bb, cc, dd, aa', 'aa' -> "'aa' was found 2 times"
  */
 
+function finder (sting, word) {
 
+    var j = 0;
+
+    for(var i = 0; i < string.length; i++) {
+        if(string[i] === word[j]) {
+               j++
+        }
+    }
+
+}
 
 
 
@@ -199,8 +209,13 @@ console.log(perfect(28));
 
 function hidding(mail) {
 
+    
+
     string = '';
     for (var i = 0; i < mail.length; i++) {
-
+        if(i<2) {
+            string += mail[i];
+        } else if (mail[i] === "@")
+``
     }
 }

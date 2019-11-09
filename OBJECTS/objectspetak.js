@@ -1,4 +1,4 @@
-"use strict"
+/* "use strict"
 
 // var student = {
 //     name: 'Pera',
@@ -235,7 +235,7 @@ console.log(duplicate([2, 4, 7, 11, -2, 1]));
 
 function remove(array2) {
 
-    array2.sort(function (a, b) {
+    array2.sort(function(a, b) {
 
         return a - b;
 
@@ -275,21 +275,174 @@ Output: 4
 
 // } console.log(oddChecker());
 
-function middleCounter(arrayInput) {
-
-    for (var j = 0; j < arrayInput.length; j++) {
-
-        if (arrayInput.length % 2 !== 0) {
-            var middleElmntIndex = ((arrayInput.length - 1) / 2) + 1;
-            for (var i = 0; i < arrayInput.length; i++) {
-                if (arrayInput[i] < arrayInput[middleElmntIndex]) {
-                    var counter = 0;
-                    counter++;
-                }
-            } return counter;
-        } else {
-            return 'error';
+/* function middleCounter(arrayInput) {
+    var counter = 0;
+    if (arrayInput.length % 2 === 0) {
+        return 'error';
+    }
+    var middleElmntIndex = Math.floor(arrayInput.length / 2);
+    for (var i = 0; i < arrayInput.length; i++) {
+        if (arrayInput[middleElmntIndex] > arrayInput[i]) {
+            counter++;
         }
     }
+    return counter;
+}
+console.log(middleCounter([-1, 8.1, 3, 6, 2.3, 44, 2.11])); */
 
-} console.log(middleCounter([-1, 8.1, 3, 6, 2.3, 44, 2.11]));
+
+
+/* Zadatak 4. 
+
+Write a function that finds the smallest element of a given array. 
+The function should return an object that contains the smallest value 
+and its last position in the array.
+Input: [1, 4, -2, 11, 8, 1, -2, 3]
+Output:  { minValue: -2, minLastIndex: 6 } 
+*/
+
+'use strict'
+
+function finder(array) {
+
+    var forSort = array.slice();
+    var sorted = forSort.sort(function(a, b) {
+        return a - b;
+    });
+    var minind = sorted[0];
+    var minLastIndex = array.lastIndexOf(minind);
+    return minLastIndex;
+}
+
+/* function xyz(finder()) {
+    this.minValue = minind;
+    this.minLastIndex = minLastIndex;
+}
+
+console.log(xyz());; */
+console.log(finder([1, 4, -2, 11, 8, 1, -2, 3]));
+
+
+/* Zadatak 5. 
+ */
+
+
+/* A  
+ Write a function that finds all the elements in a given array 
+less than a given element. 
+	Input: [2, 3, 8, -2, 11, 4], 6 
+	Output: [2, 3, -2, 4]*/
+'use strict'
+
+function finderFirst(array, n) {
+
+    var noviniz = [];
+    for (var i = 0; i < array.length; i++) {
+        if (n > array[i]) {
+            noviniz[noviniz.length] = array[i];
+        }
+    }
+    return noviniz;
+}
+console.log(finderFirst([2, 3, 8, -2, 11, 4], 6));
+
+
+
+/* B 
+Write a function that finds all the elements in a given array 
+that start with the “pro” substring. The function should be case insensitive. 
+		Input: [’JavaScript’, ’Programming’, ’fun’, ’product’] 
+    Output: [’Proggramming’, ‘product’]*/
+
+
+function findElement(array) {
+
+    var outputArray = [];
+    for (var i = 0; i < array.length; i++) {
+        if (array[i].charAt(0) === 'P' || array[i].charAt(0) === 'p' && array[i].charAt(1) === 'r' && array[i].charAt(2) === 'o') {
+            outputArray[outputArray.length] = array[i];
+        }
+    }
+    return outputArray;
+}
+console.log(findElement(['JavaScript', 'Programming', 'fun', 'product']));
+
+
+
+
+
+
+/* C 
+    Write a function that expects an array and a callback function that 
+filters out some of the elements. Use functions defined in a) or b) to test it. 
+ */
+
+
+
+
+/* Zadatak 6.
+ A
+ Write a list (array) of products you usually buy in the supermarket.
+  Write a price and name for each product. For example,
+	[
+{name: ‘apples’, price: 100}, 
+{name: ‘milk’, price: 80}, 
+{name:’bananas’, price: 150}
+]
+
+/* Zadatak 6. 
+B
+Write a function that calculates the total price of your shopping list. 
+
+C
+Write a function that calculates the average product price of your shopping list. 
+Print this value with the precision of three decimals. 
+
+D
+Write a function that prints out the name of the most expensive product on your 
+shopping list. Write the name in uppercase. 
+ */
+
+
+
+
+var array = [
+    { name: 'apples', price: 100 },
+    { name: 'milk', price: 80 },
+    { name: 'bananas', price: 150 }
+]
+
+function calculator(array) {
+    var sum = 0;
+    for (var i = 0; i < array.length; i++) {
+        sum += array[i].price;
+    }
+    return 'Ukupna cena proizvoda = ' + sum;
+}
+console.log(calculator(array));
+
+function averagePrice(ccc) {
+    var avgPriceOfProduct = ccc / array.length;
+    return avgPriceOfProduct;
+}
+console.log(averagePrice(calculator()));
+
+
+
+
+var array = [
+    { name: 'apples', price: 100 },
+    { name: 'milk', price: 80 },
+    { name: 'bananas', price: 150 }
+]
+
+function maxprice(array) {
+
+    var mostExpensive = Math.max.apply(Math, array.map(function(o) { return o.price; }));
+
+    return mostExpensive;
+}
+console.log(maxprice(array));
+
+
+/* Zadatak 6. */

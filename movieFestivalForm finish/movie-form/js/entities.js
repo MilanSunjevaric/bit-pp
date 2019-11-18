@@ -24,7 +24,10 @@ class Program {
         this.totalNumberOfMovies = 0;
     }
     addMovie(movie) {
-        this.totalNumberOfMovies = this.listOfMovies.push(movie)
+
+        this.listOfMovies.push(movie)
+        this.totalNumberOfMovies++
+
     }
     getData() {
         var pLength = 0;

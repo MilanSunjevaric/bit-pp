@@ -1,68 +1,108 @@
-$(".create-movie").click(createMovie);
+var dataModule = (function () {
 
-var movieList = []
-var programList = []
-
-function createMovie() {
-
-    var title = $(".title").val();
-    var genre = $(".genre").val();
-    var duration = $(".duration").val();
-    if (!$(".title").val()) {
-        $(".error").text("Please input Title")
-    } else if (!$(".duration").val()) {
-        $(".error").text("Please input Duration")
-    } else if ($(".genre").val() === "-") {
-        $(".error").text("Please select Genre");
-    } else {
-        $(".error").text("");
-        var movieOne = new Movie(title, genre, duration);
-        movieList.push(movieOne)
-        var movieInfoOne = movieOne.getData();
-        var liItem = $("<li>").text(movieInfoOne);
-        var selectItem = $("<option>").attr('value', movieList.length - 1).text(movieInfoOne);
-        $(".movie-list").append(liItem);
-        $(".movie").append(selectItem);
-        $(".totalLength").text(totalLength())
+    const data = {
+        movies: [],
+        programs: []
     }
-    $(':input', 'form')
-        .not(':button')
-        .val('')
 
-}
+    class Movie {
+        constructor(name, genre, length) {
+            this.name = name
+            this.genre = genre
+            this.length = length
 
-function totalLength() {
-    var res = 0;
-
-    for (var i = 0; i < movieList.length; i++) {
-        res += parseInt(movieList[i].duration)
+        }
+        getData() {
+            return `${this.name}, ${this.genre}, ${this.length}min`
+        }
     }
-    return res
-}
 
-$(".create-program").click(createProgram);
+    function createMovie(name, genre, length) {
+        return new Movie(name, genre, length)
+    }
+    function addMovie(movie) {
+        data.movies.push(movie)
+    }
 
-function createProgram() {
-    var date = $(".date").val()
-    var program = new Program(date)
-    programList.push(program)
-    var selectItem = $("<option>").attr("value", programList.length - 1).text(program.getData())
-    var liItem = $("<li>").text(program.getData())
-    $(".movie-program").append(liItem)
-    $(".program").append(selectItem)
+    class Program {
+        constructor(date) {
+            this.date = new Date(date)
+            this.listOfMovies = []
+            this.numberOfMovies = 0
+        }
+        addMovieToList() {
 
-}
+        }
+
+        getData() {
+            return this.date.getDate() + "." + (this.date.getMonth() + 1) + "." + this.date.getFullYear() + ", " + this.totalNumberOfMovies + " movies, duration:" + pLength + "min";
+        }
+    }
 
 
+    return {
+        createMovie: createMovie,
+        addMovie: addMovie
+    }
 
-$(".add-movie-to-program").click(addMovieToProgram)
+})()
 
-function addMovieToProgram() {
-    var movieIndex = $('.movie').val()
-    var programIndex = $(".program").val()
 
-    programList[programIndex].addMovie(movieList[movieIndex]);
-    var liItem = programList[programIndex].getData()
-    $(".movie-program li").eq(programIndex).text(liItem)
-    $(".program option").eq((programIndex + 1)).text(liItem)
-}
+var uiModule = (function () {
+    var titleInput = document.querySelector('.title')
+    var genreSelect = document.querySelector('.genre')
+    var lengthInput = document.querySelector('.duration')
+
+    var movieList = document.querySelector('.movie-list')
+
+    function collectFormInput() {
+        movieTitle = titleInput.value
+        movieGenre = genreSelect.value
+        movieLength = lengthInput.value
+
+
+        return {
+            title: movieTitle,
+            genre: movieGenre,
+            length: movieLength
+        }
+    }
+    function displayMovie(movie) {
+
+        var listItem = document.createElement('li')
+        listItem.append(movie.getData())
+        movieList.append(listItem)
+
+    }
+
+    return {
+        collectFormInput: collectFormInput,
+        displayMovie: displayMovie
+
+    }
+
+})()
+
+
+var controller = (function (ui, data) {
+
+    var createButton = document.querySelector('.create-movie')
+    createButton.addEventListener('click', addMovieOnClick)
+
+    function addMovieOnClick() {
+
+        var movieObj = ui.collectFormInput()
+        console.log(movieObj);
+
+        var movieInstance = data.createMovie(movieObj.title, movieObj.genre, movieObj.length)
+        console.log(movieInstance)
+
+        data.addMovie(movieInstance)
+
+        ui.displayMovie(movieInstance)
+
+    }
+
+})(uiModule, dataModule)
+
+

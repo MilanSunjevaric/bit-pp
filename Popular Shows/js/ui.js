@@ -1,25 +1,27 @@
-const uiModule = (function () {
+const uiModule = (function() {
 
-    const searchInput = document.querySelector('.searchInput')
+    function displayShows(showList) {
+        showList.forEach(function(showList) {
+            console.log('pera');
 
+            const divCard = $('<div>').addClass('col-xl-4')
+            const spanCard = $(`<span>${showList.name}</span>`)
+            console.log(divCard);
 
-    $('.searchBtn').onload('load', getDataOnClick)
-
-    function getDataOnClick(event) {
-        const dataSearch = ui.searchText()
-        data.fetchShow(dataSearch, onSuccess)
-
-
-
-
+            const card = $('.card')
+            const img = $(`<img>`).attr('src', showList.image).addClass('show-image')
 
 
-        function searchText() {
-            return searchInput.value
-        }
+            divCard.apppend(img)
+            divCard.apppend(spanCard)
 
-        return {
-            searchText
-        }
+            card.apppend(divCard)
+        });
+    };
 
-    }) ()
+
+    return {
+        displayShows
+    }
+
+})()

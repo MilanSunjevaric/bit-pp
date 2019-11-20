@@ -1,16 +1,24 @@
-const ctrlModule = (function(ui, data) {
+const ctrlModule = (function (ui, data) {
+    function onShowClick(event) {
+        const id = ui.getElementAttribute(event.currentTarget, 'data-id')
 
-
-
-
-
-    function success(showList) {
-        ui.displayShows(showList)
-        console.log('peras');
-
+        data.fetchSingleShow(id, function (showSingleItem) {
+            ui.displaySingleMovie(showSingleItem)
+        })
     }
-    data.fetchShow(success)
+
+    function initApp() {
+        function onShowsLoad(showList) {
+            ui.displayShows(showList);
+            ui.getShowCards().on('click', onShowClick);
+        }
+
+        data.fetchShow(onShowsLoad)
+    }
 
 
+    return {
+        initApp
+    }
 
 })(uiModule, dataModule)

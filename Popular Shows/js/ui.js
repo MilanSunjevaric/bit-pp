@@ -1,27 +1,73 @@
-const uiModule = (function() {
+const uiModule = (function () {
+
+    function getElementAttribute(node, attributeToExtract) {
+        return $(node).attr(attributeToExtract)
+    }
+
+    function getShowCards() {
+        return $('.showBit');
+    }
 
     function displayShows(showList) {
-        showList.forEach(function(showList) {
-            console.log('pera');
+        showList.forEach(function (x) {
 
-            const divCard = $('<div>').addClass('col-xl-4')
-            const spanCard = $(`<span>${showList.name}</span>`)
-            console.log(divCard);
+
+            const divCard = $('<div>').addClass('col-xl-4 showBit').attr('data-id', x.id)
+            const spanCard = $(`<span>${x.name}</span>`)
 
             const card = $('.card')
-            const img = $(`<img>`).attr('src', showList.image).addClass('show-image')
+            const img = $(`<img>`).attr('src', x.image).addClass('show-image show')
 
 
-            divCard.apppend(img)
-            divCard.apppend(spanCard)
+            divCard.append(img)
+            divCard.append(spanCard)
 
-            card.apppend(divCard)
+            card.append(divCard)
+
+
         });
+
+
+
+    };
+
+    function displaySingleMovie(showSingleItem) {
+        $('.card').remove()
+
+        console.log('Na dobrom ste putu');
+
+        const divCard = $('<div>').addClass('col-xl-4 oneItem')
+        const imgItem = $(`<img>`).attr('src', showSingleItem.image)
+
+        const card = $('.card')
+
+        divCard.append(imgItem)
+
+        card.append(divCard)
+
+
+
+
+
+
     };
 
 
+
     return {
-        displayShows
+        displayShows,
+        displaySingleMovie,
+        getShowCards,
+        getElementAttribute
     }
 
 })()
+
+
+
+
+/*   < img id = "Img" src = "img.jpg" onclick = "myFunction()" />
+
+      document.getElementById("Img").onclick = function() {
+          // img clicked
+      }; */
